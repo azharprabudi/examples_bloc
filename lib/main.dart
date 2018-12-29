@@ -1,4 +1,4 @@
-import 'package:examples_bloc/apps/movie-scoped-model/movie.dart';
+import 'package:examples_bloc/apps/movie-bloc/movie.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
