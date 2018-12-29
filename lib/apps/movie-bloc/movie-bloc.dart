@@ -3,6 +3,14 @@ import 'package:examples_bloc/apps/movie-bloc/movie-state.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MovieBloc {
+  static final MovieBloc _singleton = MovieBloc._internal();
+
+  factory MovieBloc() {
+    return _singleton;
+  }
+
+  MovieBloc._internal();
+
   MovieState _movieState = MovieState.empty();
   Stream<MovieState> get movie => _moviesSubject.stream;
 

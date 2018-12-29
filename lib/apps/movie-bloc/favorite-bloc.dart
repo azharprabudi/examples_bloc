@@ -1,16 +1,13 @@
 import 'package:rxdart/rxdart.dart';
 
 class FavoriteBloc {
-  Map<String, dynamic> _favorites = Map<String, dynamic>();
+  static final FavoriteBloc _singleton = FavoriteBloc._internal();
 
-  BehaviorSubject<String> _favoriteState = BehaviorSubject<String>();
-  BehaviorSubject<Map<String, dynamic>> _favoritesState =
-      BehaviorSubject<Map<String, dynamic>>();
+  factory FavoriteBloc() {
+    return _singleton;
+  }
 
-  Sink<String> get addFavorite => _favoriteState.sink;
-  Stream<Map<String, dynamic>> get favorites => _favoritesState.stream;
-
-  FavoriteBloc() {
+  FavoriteBloc._internal() {
     _favoriteState.listen((String id) {
       if (!_favorites.containsKey(id)) {
         _favorites[id] = true;
@@ -21,6 +18,15 @@ class FavoriteBloc {
       }
     });
   }
+
+  Map<String, dynamic> _favorites = Map<String, dynamic>();
+
+  BehaviorSubject<String> _favoriteState = BehaviorSubject<String>();
+  BehaviorSubject<Map<String, dynamic>> _favoritesState =
+      BehaviorSubject<Map<String, dynamic>>();
+
+  Sink<String> get addFavorite => _favoriteState.sink;
+  Stream<Map<String, dynamic>> get favorites => _favoritesState.stream;
 
   void dispose() {
     _favoritesState?.close();

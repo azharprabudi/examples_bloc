@@ -39,10 +39,7 @@ class _MovieState extends State<Movie> {
               return GestureDetector(
                 onTap: () {
                   Navigator.of(ctx).push(MaterialPageRoute(
-                    builder: (_) => Favorite(
-                          bloc: bloc,
-                          favbloc: favBloc,
-                        ),
+                    builder: (_) => Favorite(),
                   ));
                 },
                 child: Center(

@@ -4,13 +4,8 @@ import 'package:examples_bloc/apps/movie-bloc/movie-state.dart';
 import 'package:flutter/material.dart';
 
 class Favorite extends StatelessWidget {
-  MovieBloc bloc;
-  FavoriteBloc favbloc;
-
-  Favorite({
-    @required this.bloc,
-    @required this.favbloc,
-  });
+  MovieBloc bloc = MovieBloc();
+  FavoriteBloc favbloc = FavoriteBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +24,15 @@ class Favorite extends StatelessWidget {
                 itemCount: snapshot.hasData ? favsnapshot.data.keys.length : 0,
                 itemBuilder: (BuildContext ctx, int index) {
                   String id = favsnapshot.data.keys.toList()[index].toString();
-                  return ListTile(
-                    title: Text(snapshot.data.movies
-                        .firstWhere((movie) => movie.id.toString() == id)
-                        .title),
+                  return GestureDetector(
+                    onTap: () {
+                      favbloc.addFavorite.add(id);
+                    },
+                    child: ListTile(
+                      title: Text(snapshot.data.movies
+                          .firstWhere((movie) => movie.id.toString() == id)
+                          .title),
+                    ),
                   );
                 },
               );
